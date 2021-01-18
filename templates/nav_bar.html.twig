@@ -8,6 +8,10 @@
 
       <a class="nav-item nav-link" href="{{ path('home_page') }}">Accueil</a>
 
+      {% if is_granted('ROLE_ADMIN') %}
+      <a class="nav-item nav-link" href="">Admin</a>
+      {% endif %}
+
       {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
       <a class="nav-item nav-link" href="{{ path('app_login') }}">Se Connecter</a>
       <a class="nav-item nav-link" href="{{ path('app_register') }}">S'inscrire</a> 

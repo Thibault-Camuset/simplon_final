@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DefaultController!{% endblock %}
+{% block title %}Index{% endblock %}
 
 {% block body %}
 <style>
@@ -9,12 +9,16 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    
+    {% if is_granted('ROLE_USER') %}
+        <h2>Bienvenue Joueur!</h2>
+        <a href="{{ path('game_home') }}" class="btn btn-primary">Cliquer ici pour jouer!</a>
+    {% else %}
+        <h2>Déjà inscrit? Connectez-vous pour jouer!</h2>
+        <a href="{{ path('app_login') }}" class="btn btn-primary">Se Connecter</a>
+        <h2>Pas encore inscrit? Il vous suffit de vous inscrire pour jouer!</h2>
+        <a href="{{ path('app_register') }}" class="btn btn-primary">S'inscrire</a>
+    {% endif %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/opt/lampp/htdocs/simplon_final/src/Controller/DefaultController.php'|file_link(0) }}">src/Controller/DefaultController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/opt/lampp/htdocs/simplon_final/templates/default/index.html.twig'|file_link(0) }}">templates/default/index.html.twig</a></code></li>
-    </ul>
 </div>
 {% endblock %}
