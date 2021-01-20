@@ -11,7 +11,7 @@
 <div class="example-wrapper">
     
     {% if is_granted('ROLE_USER') %}
-        <h2>Bienvenue Joueur!</h2>
+        <h2>Bienvenue {{ app.user.nickname }}!</h2>
         <a href="{{ path('game_home') }}" class="btn btn-primary">Cliquer ici pour jouer!</a>
     {% else %}
         <h2>Déjà inscrit? Connectez-vous pour jouer!</h2>

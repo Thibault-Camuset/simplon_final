@@ -10,6 +10,43 @@
 
 <div class="example-wrapper">
     <h1>Game Page</h1>
-
+    <table>
+        <thead>
+            <tr>
+                {% if not app.user.gameSaves | length %}
+                    <th>Pas de sauvegarde</th>
+                {% else %}
+                    {% if app.user.gameSaves | length >= 1 %}
+                        {% for save in app.user.gameSaves %}
+                            <th>{{ save.saveName }}</th>
+                        {% endfor %}
+                        {% if app.user.gameSaves | length < 3 %}
+                        <th>Pas de Sauvegarde</th>
+                        {% endif %}
+                    {% else %}
+                        <th>Sauvegarde 1</th>
+                    {% endif %}
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            <tr>  
+                {% if not app.user.gameSaves | length %}
+                    <td><a class="btn btn-primary" href="{{ path('create_save') }}">Créer une Sauvegarde</a></td>
+                {% else %}
+                    {% if app.user.gameSaves | length >= 1 %}
+                        {% for save in app.user.gameSaves %}
+                            <td><a class="btn btn-primary">Reprendre la Sauvegarde</a></td>
+                        {% endfor %}
+                        {% if app.user.gameSaves | length < 3 %}
+                        <td><a class="btn btn-primary" href="{{ path('create_save') }}">Créer une Sauvegarde</a></td>
+                        {% endif %}
+                    {% else %}
+                        <td><a class="btn btn-primary">Reprendre la Sauvegarde</a></td>
+                    {% endif %}
+                {% endif %}
+            </tr>
+        </tbody>
+    </table>
 </div>
 {% endblock %}
