@@ -7,9 +7,24 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\GameSave;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class SaveController extends AbstractController
 {
+
+
+
+    /**
+     * @Route("/save", name="save_home")
+     */
+    public function indexAction(): Response
+    {
+        return $this->render('game/saves/home.html.twig', [
+            'controller_name' => 'SaveController',
+        ]);
+    }
+
+
     /**
      * @Route("/save/create", name="create_save")
      */
@@ -36,7 +51,22 @@ class SaveController extends AbstractController
             $entityManager->persist($save);
             $entityManager->flush();
 
-            return $this->redirectToRoute('game_home');
+            return $this->redirectToRoute('save_home');
+            
+            
+    
+    }
+
+      /**
+     * @Route("/save/loaded/{id}", name="save_loaded")
+     */
+    public function saveLoadedAction(Request $request, GameSave $save, Session $session): Response
+    {
+
+        $session->set('saved_game', $save);
+
+        
+        return $this->redirectToRoute('game_home');
             
             
     
