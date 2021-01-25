@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Prêt à jouer!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+
+    <h3>Quel monstre voulez vous affronter?</h3> 
+
+    <a class="btn btn-outline-primary" href="{{ path('monster_fight', { 'id' : 1 }) }}">Poney Andalou</a>
+
+</div>
+{% endblock %}

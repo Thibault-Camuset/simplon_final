@@ -54,8 +54,10 @@ class CharacterController extends AbstractController
      /**
      * @Route("/character/{name}/{id}", name="character_details")
      */
-    public function characterDetailsAction(Request $request, Character $character): Response
+    public function characterDetailsAction(Session $session, Request $request, Character $character): Response
     {
+        $session->set('character', $character);
+
         return $this->render('game/character/character-details.html.twig', [
             'character' => $character,
         ]);
