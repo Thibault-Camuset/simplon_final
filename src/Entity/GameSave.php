@@ -31,7 +31,7 @@ class GameSave
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity=Character::class, mappedBy="saveId")
+     * @ORM\OneToMany(targetEntity=Character::class, mappedBy="save")
      */
     private $characters;
 

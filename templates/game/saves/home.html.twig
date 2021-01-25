@@ -30,7 +30,7 @@
         <tbody>
             <tr>  
                 {% if not app.user.gameSaves | length %}
-                    <td><a class="btn btn-primary" href="{{ path('create_save') }}">Créer une Sauvegarde</a></td>
+                    <td><a href="{{ path('create_save') }}">Créer une Sauvegarde</a></td>
                 {% else %}
                     {% if app.user.gameSaves | length >= 1 %}
                         {% for save in app.user.gameSaves %}

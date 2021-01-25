@@ -12,8 +12,12 @@
 
     {% if save %}
         <p>Prêt à jouer {{ app.user.nickname }}!<p>
-        {% if save.characters | length > 0 %}
-            <p>Vous avez un personnage</p>
+        {% if characters | length > 0 %}
+        <div>
+            {% for character in characters %}
+                <a href="{{ path('character_details', {'id': character.id, 'name' : character.name }) }}" class="btn btn-outline-primary">{{ character.name }}, niveau {{ character.level }}</a>
+            {% endfor %}
+            </div>
         {% else %}
             <a class="btn btn-primary" href="{{ path('new_character') }}">Créer un nouveau personnage</a>
         {% endif %}
