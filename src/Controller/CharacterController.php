@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Character;
+use App\Entity\Monster;
 use App\Form\NewCharacterFormType;
 use Symfony\Component\HttpFoundation\Session\Session;
 

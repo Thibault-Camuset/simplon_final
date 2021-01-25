@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\Session;
 use App\Repository\MonsterRepository;
+use App\Services\game\MonsterFight;
 
 class GameController extends AbstractController
 {
@@ -48,13 +49,16 @@ class GameController extends AbstractController
     /**
      * @Route("/monster-fight/{id}", name="monster_fight")
      */
-    public function monsterFightAction(Session $session, Monster $monster): Response
+    public function monsterFightAction(MonsterFight $monsterFight, Session $session, Monster $monster): Response
     {
         $character = $session->get('character');
 
-        return $this->render('game/monster/monster-fight.html.twig', [
+        $result = $monsterFight->fight($character, $monster);
+
+        return $this->render('game/monster/fight.html.twig', [
             'character' => $character,
             'monster' => $monster,
+            'result' => $result,
         ]);
     }
 
