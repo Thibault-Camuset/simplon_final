@@ -47,4 +47,16 @@ class CharacterRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function refill()
+    {
+        $this->createQueryBuilder('q')
+            ->update('characters', 'c')
+            ->set('c.actions', 'c.actions +1') 
+            ->where('c.actions < 5')
+            ->getQuery()
+            ->execute(); 
+
+    }
+
 }

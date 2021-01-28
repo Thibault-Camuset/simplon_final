@@ -68,6 +68,11 @@ class Character
      */
     private $save;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $actions;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -189,6 +194,18 @@ class Character
     public function setSave(?GameSave $save): self
     {
         $this->save = $save;
+
+        return $this;
+    }
+
+    public function getActions(): ?int
+    {
+        return $this->actions;
+    }
+
+    public function setActions(int $actions): self
+    {
+        $this->actions = $actions;
 
         return $this;
     }

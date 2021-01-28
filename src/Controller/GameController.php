@@ -35,9 +35,9 @@ class GameController extends AbstractController
     /**
      * @Route("/monster-list/", name="monster_fight_list")
      */
-    public function monsterListAction(Session $session): Response
+    public function monsterListAction(CharacterRepository $characterRepository, Session $session): Response
     {
-
+        
         $character = $session->get('character');
 
         return $this->render('game/monster/monster-list.html.twig', [
@@ -49,11 +49,18 @@ class GameController extends AbstractController
     /**
      * @Route("/monster-fight/{id}", name="monster_fight")
      */
-    public function monsterFightAction(MonsterFight $monsterFight, Session $session, Monster $monster): Response
+    public function monsterFightAction(CharacterRepository $characterRepository, MonsterFight $monsterFight, Session $session, Monster $monster): Response
     {
         $character = $session->get('character');
+        $character = $characterRepository->find($character->getId());
 
         $result = $monsterFight->fight($character, $monster);
+        
+        $character->setActions($character->getActions() - 1);
+        
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($character);
+        $entityManager->flush();
 
         return $this->render('game/monster/fight.html.twig', [
             'character' => $character,

@@ -10,11 +10,19 @@ class MonsterFight
 
     public function fight(Character $character, Monster $monster)
     {
+
         $characterAtk = 10;
         $characterHp = $character->getMaxHp();
         $characterName = $character->getName();
 
-        $monsterAtk = 5;
+        if ($monster->getName() == 'Poney Andalou') {
+            $monsterAtk = 25;
+        } else if ($monster->getName() == 'Goblin') {
+            $monsterAtk = 5;
+        } else if ($monster->getName() == 'Chaise') {
+            $monsterAtk = 1;
+        }
+
         $monsterHp = $monster->getMaxHp();
         $monsterName = $monster->getName();
 
@@ -37,13 +45,15 @@ class MonsterFight
         }
 
         if ($characterHp <= 0) {
-            $recap = "$characterName a été battu!";
+            $recap['message'] = "$characterName a été vaincu(e)!";
         } else {
-            $recap = "$monsterName a été vaincu!";
+            $recap['message'] = "$monsterName a été vaincu(e)!";
+            $recap['xp'] = 1;
         }
 
         $result['turn'] = $turn;
-        $result['result'] = $recap;
+        $result['recap'] = $recap;
+
 
         return $result;
     }

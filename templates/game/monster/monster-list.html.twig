@@ -10,9 +10,22 @@
 
 <div class="example-wrapper">
 
+    {% if character.actions > 0 %}
+
     <h3>Quel monstre voulez vous affronter?</h3> 
 
-    <a class="btn btn-outline-primary" href="{{ path('monster_fight', { 'id' : 1 }) }}">Poney Andalou</a>
+    <a class="btn btn-outline-danger" href="{{ path('monster_fight', { 'id' : 1 }) }}">Poney Andalou</a>
 
+    <a class="btn btn-outline-primary" href="{{ path('monster_fight', { 'id' : 2 }) }}">Goblin</a>
+
+    <a class="btn btn-outline-success" href="{{ path('monster_fight', { 'id' : 3 }) }}">Chaise</a>
+
+    <a class="btn btn-outline-secondary" href="{{ path('character_details', {'id': character.id, 'name' : character.name }) }}">Retour au Personnage</a>
+
+    {% else %}
+
+    <p>Vous n'avez plus d'énergie!</p>
+
+    {% endif %}
 </div>
 {% endblock %}
