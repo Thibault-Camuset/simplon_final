@@ -35,7 +35,9 @@ class CharacterController extends AbstractController
             $character->setWisdom(5);
             $character->setCharisma(5);
             $character->setMaxHp(100);
+            $character->setCUrrentHp(100);
             $character->setActions(5);
+            $character->setInQuest(false);
             $entityManager = $this->getDoctrine()->getManager();
 
             $entityManager->persist($character);

@@ -50,12 +50,12 @@ class CharacterRepository extends ServiceEntityRepository
 
     public function refill()
     {
-        $this->createQueryBuilder('q')
-            ->update('characters', 'c')
+        $this->createQueryBuilder( 'c')
+            ->update()
             ->set('c.actions', 'c.actions +1') 
-            ->where('c.actions < 5')
+            ->where('c.actions < 10')
             ->getQuery()
-            ->execute(); 
+            ->execute();
 
     }
 

@@ -73,6 +73,16 @@ class Character
      */
     private $actions;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $currentHp;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $inQuest;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -206,6 +216,30 @@ class Character
     public function setActions(int $actions): self
     {
         $this->actions = $actions;
+
+        return $this;
+    }
+
+    public function getCurrentHp(): ?int
+    {
+        return $this->currentHp;
+    }
+
+    public function setCurrentHp(int $currentHp): self
+    {
+        $this->currentHp = $currentHp;
+
+        return $this;
+    }
+
+    public function getInQuest(): ?bool
+    {
+        return $this->inQuest;
+    }
+
+    public function setInQuest(bool $inQuest): self
+    {
+        $this->inQuest = $inQuest;
 
         return $this;
     }

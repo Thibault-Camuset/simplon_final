@@ -10,17 +10,33 @@
 
 <div class="example-wrapper">
 
-    <div class="d-block">
-        <h3 class="d-inline">{{ character.name }} <span class="badge badge-pill badge-success">{{ character.level }}</span></h3>
-            <div class="progress w-25" title="Vous avez {{ character.actions }} Points d'Actions"><div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{ character.actions }}" aria-valuemax="5" aria-valuemin="0" style="width:{{ character.actions * 20 }}%">{{ character.actions }}</div></div>
-    </div>
+    {# Nom du personnage, et son niveau #}
+    <div class="">
+        <h3 class="">{{ character.name }} <span class="badge badge-pill badge-success">{{ character.level }}</span></h3>
+
+    {# Barre d'expérience à venir #}
     {# <div class="progress"><div class="progress-bar w-{{ character.actions * 20 }}" role="progressbar" aria-valuenow="{{ character.actions }}" aria-valuemax="5" aria-valuemin="0">{{ character.actions }}</div></div> #}
 
     
     <div>
+        {# Current HP affichés en différentes couleurs en fonction du % #}
+        {% if character.currentHp == character.maxHp %}
+            <span class="badge badge-pill badge-success">{{ character.currentHp }} HP</span> / 
+        {% elseif character.currentHp > character.maxHp * 0.5 %}
+            <span class="badge badge-pill badge-warning">{{ character.currentHp }} HP</span> / 
+        {% elseif character.currentHp > 0 %}
+            <span class="badge badge-pill badge-danger">{{ character.currentHp }} HP</span> / 
+        {% else %}
+            <span class="badge badge-pill badge-danger">{{ character.currentHp }} HP</span> / 
+        {% endif %}
+        {# Max HP du personnage #}
         <span class="badge badge-pill badge-success">{{ character.maxHp }} HP</span>
     </div>
-    <ul class="list-group">
+
+    <p></p>
+
+    {# Statistiques du personnage #}
+    <ul class="list-group w-30">
         <li class="list-group-item">Force : {{ character.strength }}</li>
         <li class="list-group-item">Dextérité : {{ character.dexterity }}</li>
         <li class="list-group-item">Constitution : {{ character.constitution }}</li>
@@ -29,7 +45,26 @@
         <li class="list-group-item">Charisme : {{ character.charisma }}</li>
     </ul>
 
-    <h3>Actions</h3>
+    <p></p>
+
+    {# Points d'actions, régénérés avec le temps #}
+    <div class="progress w-10" title="Vous avez {{ character.actions }} Points d'Actions">
+            {% if character.actions == 10 %}
+                <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{ character.actions }}" aria-valuemax="10" aria-valuemin="0" style="width:{{ character.actions * 10 }}%">{{ character.actions }}</div></div>
+
+            {% elseif character.actions > 6 %}
+                <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="{{ character.actions }}" aria-valuemax="10" aria-valuemin="0" style="width:{{ character.actions * 10 }}%">{{ character.actions }}</div></div>
+
+            {% elseif character.actions > 3 %}
+                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{ character.actions }}" aria-valuemax="10" aria-valuemin="0" style="width:{{ character.actions * 10 }}%">{{ character.actions }}</div></div>
+            {% else %}
+                <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="{{ character.actions }}" aria-valuemax="10" aria-valuemin="0" style="width:{{ character.actions * 10 }}%">{{ character.actions }}</div></div>
+            {% endif %}
+    </div>
+
+    <p></p>
+
+    {# Actions réalisables par le personnage #}
     <div>
         <a class="btn btn-primary" href="{{ path('monster_fight_list') }}">Combat</a>
         <a class="btn btn-primary">Quête</a>
