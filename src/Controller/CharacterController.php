@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\GameSaveRepository;
+use App\Repository\CharacterRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,6 +39,9 @@ class CharacterController extends AbstractController
             $character->setCUrrentHp(100);
             $character->setActions(5);
             $character->setInQuest(false);
+            $character->setExperience(0);
+            $character->setCanLevelUp(false);
+            $character->setSkillPoints(5);
             $entityManager = $this->getDoctrine()->getManager();
 
             $entityManager->persist($character);
@@ -55,7 +59,7 @@ class CharacterController extends AbstractController
         ]);
     }
 
-     /**
+    /**
      * @Route("/character/{name}/{id}", name="character_details")
      */
     public function characterDetailsAction(Session $session, Request $request, Character $character): Response
@@ -66,5 +70,79 @@ class CharacterController extends AbstractController
             'character' => $character,
         ]);
     }
+
+    /**
+     * @Route("/level-up/{id}", name="level_up")
+     */
+    public function characterLevelUpAction(Session $session, Request $request, Character $character): Response
+    {
+        $character->setLevel($character->getLevel() + 1);
+        $character->setExperience($character->getExperience() - 100);
+        $character->setMaxHp($character->getmaxHp() + 50);
+        $character->setSkillPoints($character->getSkillPoints() + 5);
+        $character->setCanLevelUp(false);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($character);
+        $entityManager->flush();
+
+        $session->set('character', $character);
+
+        return $this->redirectToRoute('character_details', [
+            'id' => $character->getId(), 
+            'name' => $character->getName(), 
+            ]);
+    }
+
+
+    /**
+     * @Route("/add-stats/{stat}", name="add_stats")
+     */
+    public function characterAddStatsAction(CharacterRepository $characterRepository, Session $session, Request $request, $stat): Response
+    {
+        $character = $session->get('character');
+        $character = $characterRepository->find($character->getId());
+
+        switch ($stat) {
+            case "strength":
+                $character->setStrength($character->getStrength() + 1);
+                $character->setSkillPoints($character->getSkillPoints() - 1);
+                break;
+            case "dexterity":
+                $character->setDexterity($character->getDexterity() + 1);
+                $character->setSkillPoints($character->getSkillPoints() - 1);
+                break;
+            case "constitution":
+                $character->setConstitution($character->getConstitution() + 1);
+                $character->setSkillPoints($character->getSkillPoints() - 1);
+                break;
+            case "intelligence":
+                $character->setIntelligence($character->getIntelligence() + 1);
+                $character->setSkillPoints($character->getSkillPoints() - 1);
+                break;
+            case "wisdom":
+                $character->setWisdom($character->getWisdom() + 1);
+                $character->setSkillPoints($character->getSkillPoints() - 1);
+                break;
+            case "charisma":
+                $character->setCharisma($character->getCharisma() + 1);
+                $character->setSkillPoints($character->getSkillPoints() - 1);
+                break;
+        }
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($character);
+        $entityManager->flush();
+
+        $session->set('character', $character);
+
+        return $this->redirectToRoute('character_details', [
+            'id' => $character->getId(), 
+            'name' => $character->getName(), 
+            ]);
+    }
+
+
+
 
 }

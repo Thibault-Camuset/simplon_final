@@ -48,12 +48,23 @@ class CharacterRepository extends ServiceEntityRepository
     }
     */
 
-    public function refill()
+    public function refillAp()
     {
-        $this->createQueryBuilder( 'c')
+        $this->createQueryBuilder('c')
             ->update()
             ->set('c.actions', 'c.actions +1') 
             ->where('c.actions < 10')
+            ->getQuery()
+            ->execute();
+
+    }
+
+    public function refillHp()
+    {
+        $this->createQueryBuilder('c')
+            ->update()
+            ->set('c.currentHp', 'c.currentHp +1') 
+            ->where('c.currentHp < c.maxHp')
             ->getQuery()
             ->execute();
 

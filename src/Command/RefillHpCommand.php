@@ -10,22 +10,16 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class RefillActionPointsCommand extends Command
+class RefillHpCommand extends Command
 {
-    protected static $defaultName = 'app:refill-action-points';
+    protected static $defaultName = 'app:refill-hp';
 
     private $characterRepository;
-
-
 
     public function __construct(CharacterRepository $characterRepository) {
         parent::__construct();
         $this->characterRepository = $characterRepository;
     }
-
-
-
-
 
     protected function configure()
     {
@@ -44,7 +38,7 @@ class RefillActionPointsCommand extends Command
         if ($refill) {
             $io->note(sprintf('You passed an argument: %s', $refill));
 
-            $request = $this->characterRepository->refillAp();
+            $request = $this->characterRepository->refillHp();
         }
 
         if ($input->getOption('option1')) {

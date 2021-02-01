@@ -98,6 +98,21 @@ class Character
      */
     private $quest;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $experience;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $canLevelUp;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $skillPoints;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -291,6 +306,42 @@ class Character
     public function setQuest($quest): self
     {
         $this->quest = $quest;
+
+        return $this;
+    }
+
+    public function getExperience(): ?int
+    {
+        return $this->experience;
+    }
+
+    public function setExperience(int $experience): self
+    {
+        $this->experience = $experience;
+
+        return $this;
+    }
+
+    public function getCanLevelUp(): ?bool
+    {
+        return $this->canLevelUp;
+    }
+
+    public function setCanLevelUp(bool $canLevelUp): self
+    {
+        $this->canLevelUp = $canLevelUp;
+
+        return $this;
+    }
+
+    public function getSkillPoints(): ?int
+    {
+        return $this->skillPoints;
+    }
+
+    public function setSkillPoints(int $skillPoints): self
+    {
+        $this->skillPoints = $skillPoints;
 
         return $this;
     }

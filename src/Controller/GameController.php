@@ -111,13 +111,19 @@ class GameController extends AbstractController
             $entityManager->persist($character);
             $entityManager->flush();
         }
+
         $current = new DateTime('now');
         $total = clone $character->getQuestStartedAt()->diff(clone $character->getQuestEndingAt());
         $actual = clone $character->getQuestStartedAt()->diff($current);
-        $progress = ($actual->i / $total->i) * 100;
-        $remain = $total->i - $actual->i;
-        if ($remain <= 0) {
+        if ($actual->h > $total->h || $actual->d > $total->d || $actual->m > $total->m) {
             $remain = 0;
+            $progress = 100;
+        } else {
+            $progress = ($actual->i / $total->i) * 100;
+            $remain = $total->i - $actual->i;
+            if ($remain <= 0) {
+                $remain = 0;
+            }
         }
 
 
@@ -142,7 +148,15 @@ class GameController extends AbstractController
 
         $character->setQuestStartedAt(null);
         $character->setQuestEndingAt(null);
+        $character->setExperience($character->getExperience() + $quest->getExperience());
+
+        // Verification si 100 d'exp pour levelup?
+        if ($character->getExperience() >= 100) {
+            $character->setCanLevelup(true);
+        }
+
         $character->setQuest(null);
+        
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($character);

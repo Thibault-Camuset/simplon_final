@@ -13,10 +13,14 @@
     <h3>{{ quest.name }}</h3>
     <p>{{ quest.description }}</p>
     <div class="progress w-10" title="{{ remain }} minutes restantes">
-        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{ progress }}" aria-valuemax="100" aria-valuemin="0" style="width:{{ progress }}%">{{ remain }} minutes restantes</div></div>
-        {% if remain == 0 %}
+        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{ progress }}" aria-valuemax="100" aria-valuemin="0" style="width:{{ progress }}%">{{ remain }} minutes restantes</div>
+    </div>
+    <p></p>
+    <div>
+    {% if remain == 0 %}
             <a class="btn btn-primary" href="{{ path('quest_reward') }}">Finir la Quête</a>
         {% endif %}
+        <a href="{{ path('character_details', {'id': character.id, 'name' : character.name }) }}" class="btn btn-outline-primary">Revenir au personnage</a>
     </div>
 
 </div>
