@@ -83,6 +83,21 @@ class Character
      */
     private $inQuest;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $questStartedAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $questEndingAt;
+
+    /**
+     * @ORM\Column(type="object", nullable=true)
+     */
+    private $quest;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -240,6 +255,42 @@ class Character
     public function setInQuest(bool $inQuest): self
     {
         $this->inQuest = $inQuest;
+
+        return $this;
+    }
+
+    public function getQuestStartedAt(): ?\DateTimeInterface
+    {
+        return $this->questStartedAt;
+    }
+
+    public function setQuestStartedAt(?\DateTimeInterface $questStartedAt): self
+    {
+        $this->questStartedAt = $questStartedAt;
+
+        return $this;
+    }
+
+    public function getQuestEndingAt(): ?\DateTimeInterface
+    {
+        return $this->questEndingAt;
+    }
+
+    public function setQuestEndingAt(?\DateTimeInterface $questEndingAt): self
+    {
+        $this->questEndingAt = $questEndingAt;
+
+        return $this;
+    }
+
+    public function getQuest()
+    {
+        return $this->quest;
+    }
+
+    public function setQuest($quest): self
+    {
+        $this->quest = $quest;
 
         return $this;
     }

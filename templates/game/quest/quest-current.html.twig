@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des quêtes!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+
+    <h3>{{ quest.name }}</h3>
+    <p>{{ quest.description }}</p>
+    <div class="progress w-10" title="{{ remain }} minutes restantes">
+        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{ progress }}" aria-valuemax="100" aria-valuemin="0" style="width:{{ progress }}%">{{ remain }} minutes restantes</div></div>
+        {% if remain == 0 %}
+            <a class="btn btn-primary" href="{{ path('quest_reward') }}">Finir la Quête</a>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}
