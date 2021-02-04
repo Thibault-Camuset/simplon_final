@@ -35,9 +35,15 @@ class GameSave
      */
     private $characters;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CharacterItem::class, mappedBy="save", orphanRemoval=true)
+     */
+    private $characterItems;
+
     public function __construct()
     {
         $this->characters = new ArrayCollection();
+        $this->characterItems = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -93,6 +99,36 @@ class GameSave
             // set the owning side to null (unless already changed)
             if ($character->getSaveId() === $this) {
                 $character->setSaveId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CharacterItem[]
+     */
+    public function getCharacterItems(): Collection
+    {
+        return $this->characterItems;
+    }
+
+    public function addCharacterItem(CharacterItem $characterItem): self
+    {
+        if (!$this->characterItems->contains($characterItem)) {
+            $this->characterItems[] = $characterItem;
+            $characterItem->setSave($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCharacterItem(CharacterItem $characterItem): self
+    {
+        if ($this->characterItems->removeElement($characterItem)) {
+            // set the owning side to null (unless already changed)
+            if ($characterItem->getSave() === $this) {
+                $characterItem->setSave(null);
             }
         }
 

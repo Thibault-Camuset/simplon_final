@@ -65,6 +65,15 @@ class CharacterController extends AbstractController
     public function characterDetailsAction(Session $session, Request $request, Character $character): Response
     {
         $session->set('character', $character);
+        $character->setBonusAttack($character->getWeaponRightSlot()->getAttack());
+        $character->setBonusHp($character->getWeaponLeftSlot()->getHp());
+        
+        $character->setMaxHp($character->getBonusHp() + ($character->getConstitution() * 5) + (($character->getLevel() - 1) * 50) + 100);
+        
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($character);
+        $entityManager->flush();
 
         return $this->render('game/character/character-details.html.twig', [
             'character' => $character,

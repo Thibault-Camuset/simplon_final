@@ -11,8 +11,8 @@ class MonsterFight
     public function fight(Character $character, Monster $monster)
     {
 
-        $characterAtk = 10;
-        $characterHp = $character->getMaxHp();
+        $characterAtk = ( $character->getStrength() * 2 ) + $character->getBonusAttack();
+        $characterHp = $character->getCurrentHp();
         $characterName = $character->getName();
 
         if ($monster->getName() == 'Poney Andalou') {

@@ -113,6 +113,71 @@ class Character
      */
     private $skillPoints;
 
+    /**
+     * @ORM\OneToOne(targetEntity=CharacterItem::class, inversedBy="weaponLeftSlot", cascade={"persist", "remove"})
+     */
+    private $weaponRightSlot;
+
+    /**
+     * @ORM\OneToOne(targetEntity=CharacterItem::class, inversedBy="weaponLeftSlot", cascade={"persist", "remove"})
+     */
+    private $weaponLeftSlot;
+
+    /**
+     * @ORM\OneToOne(targetEntity=CharacterItem::class, inversedBy="bodyArmorSlot", cascade={"persist", "remove"})
+     */
+    private $bodyArmorSlot;
+
+    /**
+     * @ORM\OneToOne(targetEntity=CharacterItem::class, inversedBy="headSlot", cascade={"persist", "remove"})
+     */
+    private $headSlot;
+
+    /**
+     * @ORM\OneToOne(targetEntity=CharacterItem::class, inversedBy="handSlot", cascade={"persist", "remove"})
+     */
+    private $handSlot;
+
+    /**
+     * @ORM\OneToOne(targetEntity=CharacterItem::class, inversedBy="feetSlot", cascade={"persist", "remove"})
+     */
+    private $feetSlot;
+
+    /**
+     * @ORM\OneToOne(targetEntity=CharacterItem::class, inversedBy="beltSlot", cascade={"persist", "remove"})
+     */
+    private $beltSlot;
+
+    /**
+     * @ORM\OneToOne(targetEntity=CharacterItem::class, inversedBy="neckSlot", cascade={"persist", "remove"})
+     */
+    private $neckSlot;
+
+    /**
+     * @ORM\OneToOne(targetEntity=CharacterItem::class, inversedBy="ringRightSlot", cascade={"persist", "remove"})
+     */
+    private $ringRightSlot;
+
+    /**
+     * @ORM\OneToOne(targetEntity=CharacterItem::class, inversedBy="ringLeftSlot", cascade={"persist", "remove"})
+     */
+    private $ringLeftSlot;
+
+    /**
+     * @ORM\OneToOne(targetEntity=CharacterItem::class, inversedBy="backSlot", cascade={"persist", "remove"})
+     */
+    private $backSlot;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $bonusAttack;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $bonusHp;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -342,6 +407,162 @@ class Character
     public function setSkillPoints(int $skillPoints): self
     {
         $this->skillPoints = $skillPoints;
+
+        return $this;
+    }
+
+    public function getWeaponRightSlot(): ?CharacterItem
+    {
+        return $this->weaponRightSlot;
+    }
+
+    public function setWeaponRightSlot(?CharacterItem $weaponRightSlot): self
+    {
+        $this->weaponRightSlot = $weaponRightSlot;
+
+        return $this;
+    }
+
+    public function getWeaponLeftSlot(): ?CharacterItem
+    {
+        return $this->weaponLeftSlot;
+    }
+
+    public function setWeaponLeftSlot(?CharacterItem $weaponLeftSlot): self
+    {
+        $this->weaponLeftSlot = $weaponLeftSlot;
+
+        return $this;
+    }
+
+    public function getBodyArmorSlot(): ?CharacterItem
+    {
+        return $this->bodyArmorSlot;
+    }
+
+    public function setBodyArmorSlot(?CharacterItem $bodyArmorSlot): self
+    {
+        $this->bodyArmorSlot = $bodyArmorSlot;
+
+        return $this;
+    }
+
+    public function getHeadSlot(): ?CharacterItem
+    {
+        return $this->headSlot;
+    }
+
+    public function setHeadSlot(?CharacterItem $headSlot): self
+    {
+        $this->headSlot = $headSlot;
+
+        return $this;
+    }
+
+    public function getHandSlot(): ?CharacterItem
+    {
+        return $this->handSlot;
+    }
+
+    public function setHandSlot(?CharacterItem $handSlot): self
+    {
+        $this->handSlot = $handSlot;
+
+        return $this;
+    }
+
+    public function getFeetSlot(): ?CharacterItem
+    {
+        return $this->feetSlot;
+    }
+
+    public function setFeetSlot(?CharacterItem $feetSlot): self
+    {
+        $this->feetSlot = $feetSlot;
+
+        return $this;
+    }
+
+    public function getBeltSlot(): ?CharacterItem
+    {
+        return $this->beltSlot;
+    }
+
+    public function setBeltSlot(?CharacterItem $beltSlot): self
+    {
+        $this->beltSlot = $beltSlot;
+
+        return $this;
+    }
+
+    public function getNeckSlot(): ?CharacterItem
+    {
+        return $this->neckSlot;
+    }
+
+    public function setNeckSlot(?CharacterItem $neckSlot): self
+    {
+        $this->neckSlot = $neckSlot;
+
+        return $this;
+    }
+
+    public function getRingRightSlot(): ?CharacterItem
+    {
+        return $this->ringRightSlot;
+    }
+
+    public function setRingRightSlot(?CharacterItem $ringRightSlot): self
+    {
+        $this->ringRightSlot = $ringRightSlot;
+
+        return $this;
+    }
+
+    public function getRingLeftSlot(): ?CharacterItem
+    {
+        return $this->ringLeftSlot;
+    }
+
+    public function setRingLeftSlot(?CharacterItem $ringLeftSlot): self
+    {
+        $this->ringLeftSlot = $ringLeftSlot;
+
+        return $this;
+    }
+
+    public function getBackSlot(): ?CharacterItem
+    {
+        return $this->backSlot;
+    }
+
+    public function setBackSlot(?CharacterItem $backSlot): self
+    {
+        $this->backSlot = $backSlot;
+
+        return $this;
+    }
+
+    public function getBonusAttack(): ?int
+    {
+        return $this->bonusAttack;
+    }
+
+    public function setBonusAttack(?int $bonusAttack): self
+    {
+        $this->bonusAttack = $bonusAttack;
+
+        return $this;
+    }
+
+    public function getBonusHp(): ?int
+    {
+        return $this->bonusHp;
+    }
+
+    public function setBonusHp(?int $bonusHp): self
+    {
+        $this->bonusHp = $bonusHp;
 
         return $this;
     }
