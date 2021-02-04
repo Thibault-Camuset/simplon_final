@@ -114,7 +114,7 @@ class Character
     private $skillPoints;
 
     /**
-     * @ORM\OneToOne(targetEntity=CharacterItem::class, inversedBy="weaponLeftSlot", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=CharacterItem::class, inversedBy="weaponRightSlot", cascade={"persist", "remove"})
      */
     private $weaponRightSlot;
 
