@@ -9,44 +9,23 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Game Page</h1>
-    <table>
-        <thead>
-            <tr>
-                {% if not app.user.gameSaves | length %}
-                    <th>Pas de sauvegarde</th>
-                {% else %}
-                    {% if app.user.gameSaves | length >= 1 %}
-                        {% for save in app.user.gameSaves %}
-                            <th>{{ save.saveName }}</th>
-                        {% endfor %}
-                        {% if app.user.gameSaves | length < 3 %}
-                        <th>Pas de Sauvegarde</th>
-                        {% endif %}
-                    {% else %}
-                        <th>Sauvegarde 1</th>
-                    {% endif %}
-                {% endif %}
-            </tr>
-        </thead>
-        <tbody>
-            <tr>  
-                {% if not app.user.gameSaves | length %}
-                    <td><a class="btn btn-primary" href="{{ path('create_save') }}">Créer une Sauvegarde</a></td>
-                {% else %}
-                    {% if app.user.gameSaves | length >= 1 %}
-                        {% for save in app.user.gameSaves %}
-                            <td><a class="btn btn-primary">Reprendre la Sauvegarde</a></td>
-                        {% endfor %}
-                        {% if app.user.gameSaves | length < 3 %}
-                        <td><a class="btn btn-primary" href="{{ path('create_save') }}">Créer une Sauvegarde</a></td>
-                        {% endif %}
-                    {% else %}
-                        <td><a class="btn btn-primary">Reprendre la Sauvegarde</a></td>
-                    {% endif %}
-                {% endif %}
-            </tr>
-        </tbody>
-    </table>
+
+    {% if save %}
+        <p>Prêt à jouer {{ app.user.nickname }}!<p>
+        {% if characters | length > 0 %}
+        <div>
+            {% for character in characters %}
+                <a href="{{ path('character_details', {'id': character.id, 'name' : character.name }) }}" class="btn btn-outline-primary">{{ character.name }}, niveau {{ character.level }}</a>
+            {% endfor %}
+            </div>
+        {% else %}
+            <a class="btn btn-primary" href="{{ path('new_character') }}">Créer un nouveau personnage</a>
+        {% endif %}
+        <a href="{{ path('save_home') }}" class="btn btn-primary">Changer de sauvegarde</a>
+
+    {% else %}
+        <a href="{{ path('save_home') }}" class="btn btn-primary">Commencer à jouer</a>
+    {% endif %}
+
 </div>
 {% endblock %}
