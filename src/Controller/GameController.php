@@ -63,6 +63,9 @@ class GameController extends AbstractController
         if ($result['recap']['xp'] > 0) {
             $character->setExperience($character->getExperience() + $result['recap']['xp']);
         }
+        if ($character->getExperience() >= 100) {
+            $character->setCanLevelup(true);
+        }
         
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($character);
@@ -108,6 +111,7 @@ class GameController extends AbstractController
             $current = new DateTime('now');
             $date = clone $character->getQuestStartedAt();
             $character->setQuestEndingAt($date->modify('+' . $quest->getLength() . 'minutes'));
+            $character->setInQuest(true);
             $character->setQuest($quest);
 
 
@@ -159,6 +163,7 @@ class GameController extends AbstractController
             $character->setCanLevelup(true);
         }
 
+        $character->setInQuest(false);
         $character->setQuest(null);
         
 
