@@ -12,7 +12,7 @@ class MonsterFight
     {
 
         $characterAtk = ( $character->getStrength() * 2 ) + $character->getBonusAttack();
-        $characterHp = $character->getCurrentHp();
+        $characterHp = $character->getCurrentHp() + $character->getBonusHp();
         $characterName = $character->getName();
 
         if ($monster->getName() == 'Poney Andalou') {

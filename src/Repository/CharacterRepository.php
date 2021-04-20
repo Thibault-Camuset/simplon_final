@@ -64,10 +64,9 @@ class CharacterRepository extends ServiceEntityRepository
         $this->createQueryBuilder('c')
             ->update()
             ->set('c.currentHp', 'c.currentHp +1') 
-            ->where('c.currentHp < c.maxHp')
+            ->where('c.currentHp < c.maxHp + c.bonusHp')
             ->getQuery()
             ->execute();
-
     }
 
 }

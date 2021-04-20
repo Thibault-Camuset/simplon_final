@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\GameSaveRepository;
 use App\Repository\CharacterRepository;
+use App\Repository\CharacterItemRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,6 +13,7 @@ use App\Entity\Character;
 use App\Entity\Monster;
 use App\Form\NewCharacterFormType;
 use Symfony\Component\HttpFoundation\Session\Session;
+use App\Services\character\RetrieveEquipement;
 
 class CharacterController extends AbstractController
 {
@@ -35,8 +37,8 @@ class CharacterController extends AbstractController
             $character->setIntelligence(5);
             $character->setWisdom(5);
             $character->setCharisma(5);
-            $character->setMaxHp(100);
-            $character->setCUrrentHp(100);
+            $character->setMaxHp(125);
+            $character->setCurrentHp(125);
             $character->setActions(5);
             $character->setInQuest(false);
             $character->setExperience(0);
@@ -62,13 +64,24 @@ class CharacterController extends AbstractController
     /**
      * @Route("/character/{name}/{id}", name="character_details")
      */
-    public function characterDetailsAction(Session $session, Request $request, Character $character): Response
+    public function characterDetailsAction(RetrieveEquipement $retrieveEquipement, Session $session, Request $request, Character $character, CharacterItemRepository $characterItemRepository): Response
     {
-        $session->set('character', $character);
-        $character->setBonusAttack($character->getWeaponRightSlot()->getAttack());
-        $character->setBonusHp($character->getWeaponLeftSlot()->getHp());
+        // Verification Utilisateur connecté a faire ici, sinon, redirection
         
-        $character->setMaxHp($character->getBonusHp() + ($character->getConstitution() * 5) + (($character->getLevel() - 1) * 50) + 100);
+        $session->set('character', $character);
+
+        if ($character->getWeaponRightSlot() != null) {
+            $character->setBonusAttack($character->getWeaponRightSlot()->getAttack());
+        } 
+
+        if ($character->getWeaponLeftSlot() != null) {
+            $character->setBonusHp($character->getWeaponLeftSlot()->getHp());
+        }
+        
+        $inventory = $characterItemRepository->retrieveInventory($character->getSave());
+        $equipement = $retrieveEquipement->retrieveEquipement($character);
+
+        $character->setMaxHp(($character->getConstitution() * 5) + (($character->getLevel() - 1) * 50) + 100);
         
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -77,6 +90,8 @@ class CharacterController extends AbstractController
 
         return $this->render('game/character/character-details.html.twig', [
             'character' => $character,
+            'inventory' => $inventory,
+            'equipement' => $equipement,
         ]);
     }
 

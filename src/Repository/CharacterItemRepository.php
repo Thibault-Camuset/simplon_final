@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\CharacterItem;
+use App\Entity\GameSave;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -47,4 +48,15 @@ class CharacterItemRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+    public function retrieveInventory(GameSave $gameSave) {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.save = :val')
+            ->setParameter('val', $gameSave)
+            ->getQuery()
+            ->execute()
+        ;
+    }
+
 }

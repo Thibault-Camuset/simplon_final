@@ -15,14 +15,14 @@
         {% for turn in result.turn %}
             <li>{{ turn.recap }} 
                 {% if turn.monsterhp is defined %}
-                    <span class="badge badge-pill badge-danger">{{ turn.monsterhp }} HP</span>
+                    <span class="badge badge-rounded bg-danger">{{ turn.monsterhp }} HP</span>
                 {% else %}
-                    <span class="badge badge-pill badge-success">{{ turn.characterhp }} HP</span>  
+                    <span class="badge badge-rounded bg-success">{{ turn.characterhp }} HP</span>  
                 {% endif %}
             </li>
         {% endfor %} 
     </ul>
-    <p>{{ result.recap.message }} {% if result.recap.xp is defined %}<span class="badge badge-pill badge-warning">{{ result.recap.xp }} xp</span>{% endif %}</p>
+    <p>{{ result.recap.message }} {% if result.recap.xp is defined %}<span class="badge badge-rounded bg-warning">{{ result.recap.xp }} xp</span>{% endif %}</p>
 
     <a href="{{ path('character_details', {'id': character.id, 'name' : character.name }) }}" class="btn btn-primary">Retour</a>
 
