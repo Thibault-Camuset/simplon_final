@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Choisissez votre sauvegarde!{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid vh-100">
+    <div class="d-flex flex-column m-auto text-center h-100 align-items-center justify-content-center">
+    <h1>Vos Sauvegardes</h1>
+    <table>
+        <thead>
+            <tr>
+                {% if not app.user.gameSaves | length %}
+                    <th>Pas de sauvegarde</th>
+                {% else %}
+                    {% if app.user.gameSaves | length >= 1 %}
+                        {% for save in app.user.gameSaves %}
+                            <th>{{ save.saveName }}</th>
+                        {% endfor %}
+                        {% if app.user.gameSaves | length < 3 %}
+                        <th>Pas de Sauvegarde</th>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            <tr>  
+                {% if not app.user.gameSaves | length %}
+                    <td><a href="{{ path('create_save') }}">Créer une Sauvegarde</a></td>
+                {% else %}
+                    {% if app.user.gameSaves | length >= 1 %}
+                        {% for save in app.user.gameSaves %}
+                            <td><a class="btn btn-primary" href="{{ path('save_loaded', { 'id': save.id}) }}" >Reprendre la Sauvegarde</a></td>
+                        {% endfor %}
+                        {% if app.user.gameSaves | length < 3 %}
+                        <td><a class="btn btn-primary" href="{{ path('create_save') }}">Créer une Sauvegarde</a></td>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+{% endblock %}

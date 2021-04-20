@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -39,12 +41,22 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=16)
      */
-    private $userName;
+    private $nickname;
 
     /**
      * @ORM\Column(type="boolean")
      */
     private $isVerified = false;
+
+    /**
+     * @ORM\OneToMany(targetEntity=GameSave::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $gameSaves;
+
+    public function __construct()
+    {
+        $this->gameSaves = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -72,6 +84,13 @@ class User implements UserInterface
     {
         return (string) $this->email;
     }
+
+    public function getNickname(): string
+    {
+        return (string) $this->nickname;
+    }
+
+
 
     /**
      * @see UserInterface
@@ -124,9 +143,9 @@ class User implements UserInterface
         // $this->plainPassword = null;
     }
 
-    public function setUserName(string $userName): self
+    public function setNickname(string $nickname): self
     {
-        $this->userName = $userName;
+        $this->nickname = $nickname;
 
         return $this;
     }
@@ -139,6 +158,36 @@ class User implements UserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GameSave[]
+     */
+    public function getGameSaves(): Collection
+    {
+        return $this->gameSaves;
+    }
+
+    public function addGameSave(GameSave $gameSave): self
+    {
+        if (!$this->gameSaves->contains($gameSave)) {
+            $this->gameSaves[] = $gameSave;
+            $gameSave->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGameSave(GameSave $gameSave): self
+    {
+        if ($this->gameSaves->removeElement($gameSave)) {
+            // set the owning side to null (unless already changed)
+            if ($gameSave->getUser() === $this) {
+                $gameSave->setUser(null);
+            }
+        }
 
         return $this;
     }

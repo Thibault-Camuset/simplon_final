@@ -3,13 +3,43 @@
 {% block title %}Prêt à jouer!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Game Page</h1>
+<div class="container-fluid vh-100">
+    <div class="d-flex flex-column m-auto text-center h-100 align-items-center justify-content-center">
 
+        {# On vérifie si l'utilisateur dispose déjà d'une sauvegarde chargée #}
+        {% if save %}
+
+            <p>Prêt à jouer {{ app.user.nickname }}!<p>
+
+            {% if characters | length > 0 %}
+
+                {# Si la sauvegarde est chargée, on regarde si la sauvegarde dispose déjà de personnages crées #}
+                <div>
+                    <p>Vos Personnages</p>
+                    {% for character in characters %}
+                        {# S'il y a bien des personnages dans la sauvegarde, ils sont affichés et le joueur les jouer #}
+                        <a href="{{ path('character_details', {'id': character.id, 'name' : character.name }) }}" class="btn btn-outline-primary">{{ character.name }}, niveau {{ character.level }}</a>
+                    {% endfor %}    
+                </div>
+
+            {% else %}
+
+                {# Si la sauvegarde est chargée, mais qu'il n'y a pas de personnage, le joueur peux en créer un #}
+                <a class="btn btn-primary" href="{{ path('new_character') }}">Créer un nouveau personnage</a>
+            
+            {% endif %}
+
+            <a href="{{ path('save_home') }}" class="btn btn-primary mt-5">Changer de sauvegarde</a>
+        
+        {% else %}
+
+            {# Si aucune sauvegarde n'est chargée, le joueur peux se rendre sur ses sauvegardes #}
+            <p>Commencer à jouer</p>
+            <a href="{{ path('save_home') }}" class="btn btn-primary">Commencer à jouer</a>
+        
+        {% endif %}
+        
+    </div>
 </div>
 {% endblock %}
