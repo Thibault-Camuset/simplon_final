@@ -48,12 +48,12 @@ class MonsterFight
             $recap['message'] = "$characterName a été vaincu(e)!";
         } else {
             $recap['message'] = "$monsterName a été vaincu(e)!";
-            $recap['xp'] = 1;
+            $recap['xp'] = 5;
         }
 
         $result['turn'] = $turn;
         $result['recap'] = $recap;
-
+        $result['hp'] = $characterHp;
 
         return $result;
     }

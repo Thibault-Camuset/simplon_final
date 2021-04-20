@@ -59,6 +59,10 @@ class GameController extends AbstractController
         $result = $monsterFight->fight($character, $monster);
         
         $character->setActions($character->getActions() - 1);
+        $character->setCurrentHp($result['hp']);
+        if ($result['recap']['xp'] > 0) {
+            $character->setExperience($character->getExperience() + $result['recap']['xp']);
+        }
         
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($character);
