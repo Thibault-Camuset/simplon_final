@@ -39,6 +39,7 @@ class CharacterController extends AbstractController
             $character->setCharisma(5);
             $character->setMaxHp(125);
             $character->setCurrentHp(125);
+            $character->setBonusHp(0);
             $character->setActions(5);
             $character->setInQuest(false);
             $character->setExperience(0);
@@ -72,17 +73,26 @@ class CharacterController extends AbstractController
 
         if ($character->getWeaponRightSlot() != null) {
             $character->setBonusAttack($character->getWeaponRightSlot()->getAttack());
-        } 
+        } else {
+            $character->setBonusAttack(0);
+        }
 
         if ($character->getWeaponLeftSlot() != null) {
             $character->setBonusHp($character->getWeaponLeftSlot()->getHp());
+        } else {
+            $character->setBonusHp(0);
         }
         
         $inventory = $characterItemRepository->retrieveInventory($character->getSave());
         $equipement = $retrieveEquipement->retrieveEquipement($character);
 
         $character->setMaxHp(($character->getConstitution() * 5) + (($character->getLevel() - 1) * 50) + 100);
-        
+        if ($character->getCurrentHp() > $character->getMaxHp()) {
+            $character->setCurrentHp($character->getMaxHp());
+        }
+        if ($character->getCurrentHp() < 0 ) {
+            $character->setCurrentHp(0);
+        }
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($character);

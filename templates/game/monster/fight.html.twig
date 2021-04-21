@@ -15,9 +15,17 @@
         {% for turn in result.turn %}
             <li>{{ turn.recap }} 
                 {% if turn.monsterhp is defined %}
-                    <span class="badge badge-rounded bg-danger">{{ turn.monsterhp }} HP</span>
+                    {% if turn.monsterhp > 0 %}
+                        <span class="badge badge-rounded bg-danger">{{ turn.monsterhp }} HP</span>
+                    {% else %}  
+                        <span class="badge badge-rounded bg-danger">Dead</span>
+                    {% endif %}
                 {% else %}
-                    <span class="badge badge-rounded bg-success">{{ turn.characterhp }} HP</span>  
+                    {% if turn.characterhp > 0 %}
+                        <span class="badge badge-rounded bg-success">{{ turn.characterhp }} HP</span>
+                    {% else %}  
+                        <span class="badge badge-rounded bg-success">Down</span>
+                    {% endif %}  
                 {% endif %}
             </li>
         {% endfor %} 

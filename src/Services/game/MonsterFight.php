@@ -46,6 +46,7 @@ class MonsterFight
 
         if ($characterHp <= 0) {
             $recap['message'] = "$characterName a été vaincu(e)!";
+            $recap['xp'] = 0;
         } else {
             $recap['message'] = "$monsterName a été vaincu(e)!";
             $recap['xp'] = 5;
