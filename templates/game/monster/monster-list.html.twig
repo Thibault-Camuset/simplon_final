@@ -3,29 +3,30 @@
 {% block title %}Liste des monstres!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
+
+<div class="container-fluid vh-100">
+    <div class="d-flex flex-column m-auto text-center h-100 align-items-center justify-content-center">
 
     {% if character.actions > 0 %}
 
-    <h3>Quel monstre voulez vous affronter?</h3> 
+    <h3 class="mb-4">Quel monstre voulez vous affronter?</h3> 
 
-    <a class="btn btn-outline-danger" href="{{ path('monster_fight', { 'id' : 1 }) }}">Poney Andalou</a>
+    <div class="d-flex flex-row justify-content-around">
+        <a class="btn btn-outline-danger me-3" href="{{ path('monster_fight', { 'id' : 1 }) }}">Poney Andalou</a>
 
-    <a class="btn btn-outline-primary" href="{{ path('monster_fight', { 'id' : 2 }) }}">Goblin</a>
+        <a class="btn btn-outline-primary me-3" href="{{ path('monster_fight', { 'id' : 2 }) }}">Goblin</a>
 
-    <a class="btn btn-outline-success" href="{{ path('monster_fight', { 'id' : 3 }) }}">Chaise</a>
+        <a class="btn btn-outline-success" href="{{ path('monster_fight', { 'id' : 3 }) }}">Chaise</a>
+    </div>
 
-    <a class="btn btn-outline-secondary" href="{{ path('character_details', {'id': character.id, 'name' : character.name }) }}">Retour au Personnage</a>
+    <a class="btn btn-outline-secondary mt-5" href="{{ path('character_details', {'id': character.id, 'name' : character.name }) }}">Retour au Personnage</a>
 
     {% else %}
 
     <p>Vous n'avez plus d'énergie!</p>
 
     {% endif %}
+</div>
 </div>
 {% endblock %}

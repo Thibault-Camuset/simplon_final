@@ -22,6 +22,8 @@ class CharacterController extends AbstractController
      */
     public function newCharacterAction(Request $request, Session $session, GameSaveRepository $gameSaveRepository): Response
     {
+        if($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+
         $character = new Character();
         $form = $this->createForm(NewCharacterFormType::class, $character);
         $form->handleRequest($request);
@@ -60,6 +62,9 @@ class CharacterController extends AbstractController
             'character' => $character,
             'form' => $form->createView(),
         ]);
+    } else {
+        return $this->redirectToRoute('home_page');
+    }
     }
 
     /**
@@ -68,7 +73,7 @@ class CharacterController extends AbstractController
     public function characterDetailsAction(RetrieveEquipement $retrieveEquipement, Session $session, Request $request, Character $character, CharacterItemRepository $characterItemRepository): Response
     {
         // Verification Utilisateur connecté a faire ici, sinon, redirection
-        
+        if($this->isGranted('IS_AUTHENTICATED_FULLY')) {
         $session->set('character', $character);
 
         if ($character->getWeaponRightSlot() != null) {
@@ -103,6 +108,9 @@ class CharacterController extends AbstractController
             'inventory' => $inventory,
             'equipement' => $equipement,
         ]);
+    } else {
+        return $this->redirectToRoute('home_page');
+    }
     }
 
     /**
@@ -110,6 +118,7 @@ class CharacterController extends AbstractController
      */
     public function characterLevelUpAction(Session $session, Request $request, Character $character): Response
     {
+        if($this->isGranted('IS_AUTHENTICATED_FULLY')) {
         $character->setLevel($character->getLevel() + 1);
         $character->setExperience($character->getExperience() - 100);
         $character->setMaxHp($character->getmaxHp() + 50);
@@ -126,6 +135,9 @@ class CharacterController extends AbstractController
             'id' => $character->getId(), 
             'name' => $character->getName(), 
             ]);
+        } else {
+            return $this->redirectToRoute('home_page');
+        }
     }
 
 
@@ -134,6 +146,7 @@ class CharacterController extends AbstractController
      */
     public function characterAddStatsAction(CharacterRepository $characterRepository, Session $session, Request $request, $stat): Response
     {
+        if($this->isGranted('IS_AUTHENTICATED_FULLY')) {
         $character = $session->get('character');
         $character = $characterRepository->find($character->getId());
 
@@ -174,6 +187,9 @@ class CharacterController extends AbstractController
             'id' => $character->getId(), 
             'name' => $character->getName(), 
             ]);
+        } else {
+            return $this->redirectToRoute('home_page');
+        }
     }
 
 

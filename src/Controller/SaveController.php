@@ -19,9 +19,13 @@ class SaveController extends AbstractController
      */
     public function indexAction(): Response
     {
+        if($this->isGranted('IS_AUTHENTICATED_FULLY')) {
         return $this->render('game/saves/home.html.twig', [
             'controller_name' => 'SaveController',
         ]);
+    } else {
+        return $this->redirectToRoute('home_page');
+    }
     }
 
 
@@ -30,9 +34,13 @@ class SaveController extends AbstractController
      */
     public function createSaveAction(): Response
     {
+        if($this->isGranted('IS_AUTHENTICATED_FULLY')) {
         return $this->render('game/saves/create-save.html.twig', [
             'controller_name' => 'SaveController',
         ]);
+    } else {
+        return $this->redirectToRoute('home_page');
+    }
         
     }
 
@@ -42,7 +50,7 @@ class SaveController extends AbstractController
      */
     public function saveCreatedAction(Request $request): Response
     {
-
+        if($this->isGranted('IS_AUTHENTICATED_FULLY')) {
         $save = new GameSave();
         
             $save->setSaveName($request->get('save-name'));
@@ -52,23 +60,28 @@ class SaveController extends AbstractController
             $entityManager->flush();
 
             return $this->redirectToRoute('save_home');
-            
+        } else {
+            return $this->redirectToRoute('home_page');
+        }
+
             
     
     }
 
-      /**
+    /**
      * @Route("/save/loaded/{id}", name="save_loaded")
      */
     public function saveLoadedAction(Request $request, GameSave $save, Session $session): Response
     {
-
+        if($this->isGranted('IS_AUTHENTICATED_FULLY')) {
         $session->set('saved_game', $save);
 
         
         return $this->redirectToRoute('game_home');
             
-            
+    } else {
+        return $this->redirectToRoute('home_page');
+    }
     
     }
 

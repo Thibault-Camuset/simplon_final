@@ -22,6 +22,7 @@ class GameController extends AbstractController
      */
     public function indexAction(CharacterRepository $characterRepository, Session $session): Response
     {
+        if($this->isGranted('IS_AUTHENTICATED_FULLY')) {
         if ($session->get('saved_game')) {
             $characters = $characterRepository->findBy(['save' => $session->get('saved_game')->getId()]);
         } else {
@@ -32,6 +33,9 @@ class GameController extends AbstractController
             'save' => $session->get('saved_game'),
             'characters' => $characters,
         ]);
+    } else {
+        return $this->redirectToRoute('home_page');
+    }
     }
 
     /**
@@ -39,12 +43,15 @@ class GameController extends AbstractController
      */
     public function monsterListAction(CharacterRepository $characterRepository, Session $session): Response
     {
-        
+        if($this->isGranted('IS_AUTHENTICATED_FULLY')) {
         $character = $session->get('character');
 
         return $this->render('game/monster/monster-list.html.twig', [
             'character' => $character,
         ]);
+    } else {
+        return $this->redirectToRoute('home_page');
+    }
     }
 
 
@@ -53,6 +60,7 @@ class GameController extends AbstractController
      */
     public function monsterFightAction(CharacterRepository $characterRepository, MonsterFight $monsterFight, Session $session, Monster $monster): Response
     {
+        if($this->isGranted('IS_AUTHENTICATED_FULLY')) {
         $character = $session->get('character');
         $character = $characterRepository->find($character->getId());
 
@@ -76,6 +84,9 @@ class GameController extends AbstractController
             'monster' => $monster,
             'result' => $result,
         ]);
+    } else {
+        return $this->redirectToRoute('home_page');
+    }
     }
 
 
@@ -89,12 +100,15 @@ class GameController extends AbstractController
      */
     public function questAction(CharacterRepository $characterRepository, Session $session): Response
     {
-        
+        if($this->isGranted('IS_AUTHENTICATED_FULLY')) {
         $character = $session->get('character');
 
         return $this->render('game/quest/quest-list.html.twig', [
             'character' => $character,
         ]);
+    } else {
+        return $this->redirectToRoute('home_page');
+    }
     }
 
     /**
@@ -102,6 +116,7 @@ class GameController extends AbstractController
      */
     public function questAttemptAction(CharacterRepository $characterRepository, Session $session, Quest $quest): Response
     {
+        if($this->isGranted('IS_AUTHENTICATED_FULLY')) {
         $character = $session->get('character');
         $character = $characterRepository->find($character->getId());
 
@@ -143,6 +158,9 @@ class GameController extends AbstractController
             'remain' => $remain,
         
         ]);
+    } else {
+        return $this->redirectToRoute('home_page');
+    }
     }
 
     /**
@@ -150,6 +168,7 @@ class GameController extends AbstractController
      */
     public function questRewardAction(CharacterRepository $characterRepository, Session $session): Response
     {
+        if($this->isGranted('IS_AUTHENTICATED_FULLY')) {
         $character = $session->get('character');
         $character = $characterRepository->find($character->getId());
         $quest = $character->getQuest();
@@ -176,6 +195,9 @@ class GameController extends AbstractController
             'character' => $character,
             'quest' => $quest,
         ]);
+    } else {
+        return $this->redirectToRoute('home_page');
+    }
     }
 
 }
