@@ -7,8 +7,6 @@
 <div class="container-fluid vh-100">
     <div class="d-flex flex-column m-auto text-center h-100 align-items-center justify-content-center">
 
-    {% if character.actions > 0 %}
-
     <h3 class="mb-3">Quelle quête voulez vous effectuer?</h3> 
 
     <a class="btn btn-outline-danger" href="{{ path('quest_attempt', { 'id' : 1 }) }}">Courir après les Poneys</a>
@@ -19,11 +17,6 @@
 
     <a class="btn btn-outline-secondary mt-5" href="{{ path('character_details', {'id': character.id, 'name' : character.name }) }}">Retour au Personnage</a>
 
-    {% else %}
-
-    {# Message si déjà en quete? #}
-
-    {% endif %}
 </div>
 </div>
 {% endblock %}

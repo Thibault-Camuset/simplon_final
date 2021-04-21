@@ -25,6 +25,7 @@
     {% else %}
 
     <p>Vous n'avez plus d'énergie!</p>
+        <a class="btn btn-outline-secondary mt-3" href="{{ path('character_details', {'id': character.id, 'name' : character.name }) }}">Retour au Personnage</a>
 
     {% endif %}
 </div>
