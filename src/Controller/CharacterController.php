@@ -87,8 +87,8 @@ class CharacterController extends AbstractController
         $equipement = $retrieveEquipement->retrieveEquipement($character);
 
         $character->setMaxHp(($character->getConstitution() * 5) + (($character->getLevel() - 1) * 50) + 100);
-        if ($character->getCurrentHp() > $character->getMaxHp()) {
-            $character->setCurrentHp($character->getMaxHp());
+        if ($character->getCurrentHp() > ($character->getMaxHp() + $character->getBonusHp())) {
+            $character->setCurrentHp($character->getMaxHp() + $character->getBonusHp());
         }
         if ($character->getCurrentHp() < 0 ) {
             $character->setCurrentHp(0);
