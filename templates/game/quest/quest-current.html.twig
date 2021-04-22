@@ -16,7 +16,7 @@
     {% if remain == 0 %}
             <a class="btn btn-primary" href="{{ path('quest_reward') }}">Finir la Quête</a>
         {% endif %}
-        <a href="{{ path('character_details', {'id': character.id, 'name' : character.name }) }}" class="btn btn-outline-primary">Revenir au personnage</a>
+        <a href="{{ path('character_details', {'id': character.id }) }}" class="btn btn-outline-primary">Revenir au personnage</a>
     </div>
 
 </div>

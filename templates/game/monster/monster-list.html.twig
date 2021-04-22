@@ -20,12 +20,12 @@
         <a class="btn btn-outline-success" href="{{ path('monster_fight', { 'id' : 3 }) }}">Chaise</a>
     </div>
 
-    <a class="btn btn-outline-secondary mt-5" href="{{ path('character_details', {'id': character.id, 'name' : character.name }) }}">Retour au Personnage</a>
+    <a class="btn btn-outline-secondary mt-5" href="{{ path('character_details', {'id': character.id }) }}">Retour au Personnage</a>
 
     {% else %}
 
     <p>Vous n'avez plus d'énergie!</p>
-        <a class="btn btn-outline-secondary mt-3" href="{{ path('character_details', {'id': character.id, 'name' : character.name }) }}">Retour au Personnage</a>
+        <a class="btn btn-outline-secondary mt-3" href="{{ path('character_details', {'id': character.id }) }}">Retour au Personnage</a>
 
     {% endif %}
 </div>

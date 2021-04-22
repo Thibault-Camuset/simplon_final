@@ -133,7 +133,6 @@ class CharacterController extends AbstractController
 
         return $this->redirectToRoute('character_details', [
             'id' => $character->getId(), 
-            'name' => $character->getName(), 
             ]);
         } else {
             return $this->redirectToRoute('home_page');

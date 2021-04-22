@@ -9,7 +9,7 @@
 
     <h3>Quête "{{ quest.name }}" finie!</h3>
     <p>{{ character.name }} gagne <span class="badge badge-rounded bg-warning">{{ quest.experience }} xp</span><p>
-    <a href="{{ path('character_details', {'id': character.id, 'name' : character.name }) }}" class="btn btn-outline-primary">Revenir au personnage</a>
+    <a href="{{ path('character_details', {'id': character.id }) }}" class="btn btn-outline-primary">Revenir au personnage</a>
 
 </div>
 </div>
