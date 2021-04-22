@@ -18,7 +18,7 @@ use App\Services\character\RetrieveEquipement;
 class CharacterController extends AbstractController
 {
     /**
-     * @Route("/character/new-character", name="new_character")
+     * @Route("/personnage/nouveau-personnage", name="new_character")
      */
     public function newCharacterAction(Request $request, Session $session, GameSaveRepository $gameSaveRepository): Response
     {
@@ -68,7 +68,7 @@ class CharacterController extends AbstractController
     }
 
     /**
-     * @Route("/character/{name}/{id}", name="character_details")
+     * @Route("/personnage/fiche/{id}", name="character_details")
      */
     public function characterDetailsAction(RetrieveEquipement $retrieveEquipement, Session $session, Request $request, Character $character, CharacterItemRepository $characterItemRepository): Response
     {

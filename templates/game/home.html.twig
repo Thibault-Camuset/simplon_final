@@ -19,7 +19,7 @@
                     <p>Vos Personnages</p>
                     {% for character in characters %}
                         {# S'il y a bien des personnages dans la sauvegarde, ils sont affichés et le joueur les jouer #}
-                        <a href="{{ path('character_details', {'id': character.id, 'name' : character.name }) }}" class="btn btn-outline-primary">{{ character.name }}, niveau {{ character.level }}</a>
+                        <a href="{{ path('character_details', {'id': character.id }) }}" class="btn btn-outline-primary">{{ character.name }}, niveau {{ character.level }}</a>
                     {% endfor %}    
                 </div>
 

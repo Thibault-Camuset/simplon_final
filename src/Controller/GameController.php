@@ -18,7 +18,7 @@ use App\Services\game\MonsterFight;
 class GameController extends AbstractController
 {
     /**
-     * @Route("/game", name="game_home")
+     * @Route("/jeu", name="game_home")
      */
     public function indexAction(CharacterRepository $characterRepository, Session $session): Response
     {
@@ -39,7 +39,7 @@ class GameController extends AbstractController
     }
 
     /**
-     * @Route("/monster-list/", name="monster_fight_list")
+     * @Route("/liste-monstres/", name="monster_fight_list")
      */
     public function monsterListAction(CharacterRepository $characterRepository, Session $session): Response
     {
@@ -56,7 +56,7 @@ class GameController extends AbstractController
 
 
     /**
-     * @Route("/monster-fight/{id}", name="monster_fight")
+     * @Route("/combat-monstre/{id}", name="monster_fight")
      */
     public function monsterFightAction(CharacterRepository $characterRepository, MonsterFight $monsterFight, Session $session, Monster $monster): Response
     {
@@ -96,7 +96,7 @@ class GameController extends AbstractController
 
 
     /**
-     * @Route("/quest-list/", name="quest_list")
+     * @Route("/liste-quetes/", name="quest_list")
      */
     public function questAction(CharacterRepository $characterRepository, Session $session): Response
     {
@@ -112,7 +112,7 @@ class GameController extends AbstractController
     }
 
     /**
-     * @Route("/quest-attempt/{id}", name="quest_attempt")
+     * @Route("/tentative-quete/{id}", name="quest_attempt")
      */
     public function questAttemptAction(CharacterRepository $characterRepository, Session $session, Quest $quest): Response
     {
@@ -164,7 +164,7 @@ class GameController extends AbstractController
     }
 
     /**
-     * @Route("/quest-reward/", name="quest_reward")
+     * @Route("/recompense-quete/", name="quest_reward")
      */
     public function questRewardAction(CharacterRepository $characterRepository, Session $session): Response
     {
